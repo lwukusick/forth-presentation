@@ -68,7 +68,7 @@ There are a few things to unpack here. As we said, `:` starts the word definitio
 
 ## Memory in Forth
 
-Memory in Forth is yet another stack. This stack has dictionary labels. For example a portion of the memory might look like this:
+Memory in Forth is yet another stack. This stack has dictionary labels, and so it is referred to as dictionary memory. For example a portion of the memory might look like this:
 
 |      MYITEM       |
 |-------------------|
@@ -84,7 +84,13 @@ Memory in Forth is yet another stack. This stack has dictionary labels. For exam
 |-------------------|
 |         0         |
 
-Where < is the memory stack pointer (points at the first free address on the memory stack).
+Where < is the dictionary pointer (points at the first free address on the memory stack). Memory locations can be accessed with `@` ( adr -- val ) and stored with `!` (val adr -- ). Value size is not handled for you; instead the word `cell` ( -- size ) gives the size of a block in memory in order to properly access adjacent cells on the dictionary. For example, on my machine all values in Forth take 8 bytes, so `cell` just pushes 8. `here` ( -- adr ) puts the address of the top of the user dictionary onto the stack. `allot` moves this pointer to allocate more space. `,` is a common word that might be defined as:
+
+`: ,  here ! cell allot ;`
+
+This is all well and good for manipulating things in already existant dictionary entries, but how do you add new entries?
+
+## CREATE
 
 MYITEM is the dictionary heading. These headings are created by the `create` word. Lets take a look at the `variable` word. A definition for this word might be:
 
@@ -122,4 +128,4 @@ This block can be designated by `does>`. `does>` provides, at runtime, the addre
 
 `: const create , does> @ ;`
 
-This would store the proceeding value in memory with , under the following dictionary header at compile time, and then at run time it would access the memory address with @ and return the value stored there.
+This would store the proceeding value in memory with , under the following dictionary header at compile time. At run time it would access the memory address with @ and return the value stored there.
