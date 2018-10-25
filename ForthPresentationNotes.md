@@ -51,20 +51,9 @@ Conditionals and loops of course make an appearance.
 
 There are a few loop variations but we won't go throught them all here.
 
-Some words can only be used in the definitions of other words. For example, `if` cannot be used in the repl. These words are called immediate words. This means in compiler mode these words are executed immediately. For example:
+Errors can be thrown with `abort"`: 
 
-`: compileShow5 5 . ; immediate
-: example compileShow5 ; \ prints 5 **when its compiled**`
-
-This is how a lot of branching statements are implemented. Immediate values are used to save the memory locations **of the instructions** in order to return to them.
-
-## Bootstrapping Your Forth
-
-Forth is a language that is meant to be built on. This is an implementation of comments in Forth:
-
-`: ( 41 word drop ;`
-
-There are a few things to unpack here. As we said, `:` starts the word definition and `(` is the word being defined. `word` reads the input stream until it recieves a value with the proceeding ASCII code (41 is ')'). `drop` then drops everything `word` collected from the stream. In this way everything in between parentheses is dropped. 
+`abort" Error Message"`
 
 ## Memory in Forth
 
