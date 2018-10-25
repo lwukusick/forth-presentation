@@ -76,15 +76,15 @@ Memory in Forth is yet another stack. This stack has dictionary labels. For exam
 |-------------------|
 |      <meta>       |
 |-------------------|
-|      <stuff>      |<
+|      <stuff>      |
 |-------------------|
-|         0         |
+|         0         |<
 |-------------------|
 |         0         |
 |-------------------|
 |         0         |
 
-Where < is the memory stack pointer.
+Where < is the memory stack pointer (points at the first free address on the memory stack).
 
 MYITEM is the dictionary heading. These headings are created by the `create` word. Lets take a look at the `variable` word. A definition for this word might be:
 
@@ -108,18 +108,18 @@ MYITEM is the dictionary heading. These headings are created by the `create` wor
 |-------------------|
 |      <stuff>      |
 |-------------------|
-|         1         |<
+|         1         |
 |-------------------|
-|         0         |
+|         0         |<
 |-------------------|
 |         0         |
 
 This is actually how all words in Forth are stored. Without going into it too much, words that execute other words simply store the executed words' memory pointers under its dictionary entry ("meta stuff" in the diagram).
 
-This creation happens when `variable` is executed, but it is important to note that it occurs during `myItem`'s compile time. There is another block of code that is executed during `myItems`'s runtime, but in this example it is the default behavior.
+This creation happens when `variable` is executed, but it is important to note that it occurs during `myItem`'s **compile time**. There is another block of code that is executed during `myItems`'s **runtime**, but in this example it is the default behavior.
 
-This block can be designated by `does>`. `does>` provides, at runtime, the address following the word's code. In the example case, it pushes the location of the 1 onto the stack. If we didn't want the address and instead wanted, say, the value stored there to immediately be pushed onto the stack, we could define variable as:
+This block can be designated by `does>`. `does>` provides, at runtime, the address following the word's code. In the example case, it pushes the location of the 1 onto the stack. If we didn't want the address and instead wanted, say, a constant value we could define it as:
 
-`: variable create 0 , does> @ ;`
+`: const create , does> @ ;`
 
-(Though this would be useless, as without the address we could not modify the value stored there)
+This would store the proceeding value in memory with , under the following dictionary header at compile time, and then at run time it would access the memory address with @ and return the value stored there.
