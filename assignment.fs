@@ -1,5 +1,8 @@
 \ To load a source file into your repl, run: s" <file path>" included
 
+\ If you could just like email your solution to one of us that would be great
+\ Again, you don't have to do parts 1 and 2 if you don't want to. We will only grade part 3
+
 \ Here are some stack manipulations for your reference
 \ The signatures are in the form ( <stack in> -- <stack out> )
 \ dup   ( a -- a a )
