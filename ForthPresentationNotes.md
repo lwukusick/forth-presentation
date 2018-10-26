@@ -18,11 +18,11 @@ Use words to operate on the stack values:
 
 `1 2 + \ consumes 1 and 2 and pushes the sum onto the stack`
 
-Because of this stack structure all of the operators are postfix. Words are defined with `:` and `;`. This defines a square function:
+Because of this stack structure all of the operators are postfix. Words are defined with `:` and `;`. This defines a double function:
 
-`: square dup * ;`
+`: double dup + ;`
 
-`:` is the command to enter compiler mode and `;` exits compiler mode. `square` is the defined word. `dup` duplicates the item on the top of the stack and `*` multiplies this duplicate by the original.
+`:` is the command to enter compiler mode and `;` exits compiler mode. `double` is the defined word. `dup` duplicates the item on the top of the stack and `*` multiplies this duplicate by the original.
 
 (Also of note, Forth is case-insensitive)
 
@@ -32,10 +32,12 @@ The existance of the stack not mean the stack is the only way to store data; mem
 
 Words in Forth can't have defined parameters. In order to make words more readable, the convention is to follow a definition with a comment describing the state of the stack before and after the word is called, e.g.:
 
-`: square ( n -- n^2 ) 
-    dup * ;`
+`: double ( n -- 2n ) 
+    dup + ;`
     
 Conditionals and loops of course make an appearance.
+
+(0 is false and anything else is truthy, though canonical true is all bits set to 1, i.e. -1 in twos compliment)
 
 `: abs ( n -- m )
     dup 0 < if 
@@ -50,10 +52,6 @@ Conditionals and loops of course make an appearance.
 (`do` consumes two values from the stack, a limit and a initial index. The current index can be accessed in the loop body with `i`)
 
 There are a few loop variations but we won't go throught them all here.
-
-Errors can be thrown with `abort"`: 
-
-`abort" Error Message"`
 
 ## Memory in Forth
 
