@@ -73,12 +73,15 @@
   + [ index+address ]
   CELL+ [ index+address+8 ] [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell])
 
-
 \ Make a function which creates a 2d array (you don't have to worry about checking bounds)
+\ Of course, 2d arrays aren't actually a thing in memory. 
+\ You will have to allocate the proper amount of space in the create block and define how to access it based on the inputs in the does> block
+
+
   
 
-/ Uncomment this next line before running the test
-/ 4 5 [ 2dArray ] mat
+\ Uncomment this next line before running the test
+\ 4 5 [ 2dArray ] mat
 
 : test2dArray
   10 2 3 mat !
