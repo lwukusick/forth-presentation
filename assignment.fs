@@ -1,10 +1,10 @@
 \ To load a source file into your repl, run: s" <file path>" included
-\ To run all the tests run: runAllTests
-
+\ To run all the tests run: runAllTests and make sure to uncomment the line above the 2d array test
 
 : runAllTests 
   testSquare 
-  test^4 ;
+  test^4 
+  test2dArray ;
 
 \ Here are some stack manipulations for your reference
 \ The signatures are in the form ( <stack in> -- <stack out> )
@@ -50,8 +50,7 @@
     .
   then space emit ;
 
-\ Part 3: Here is code which creates an array which checks bounds
-\ Make a function which creates a 2d array (you don't have to worry about checking bounds)
+\ Part 3: Here is just some example code which creates an array which checks bounds
 
 \ Capitalization doesn't matter at all in Forth
 
@@ -73,6 +72,9 @@
   ABORT" { If top of stack is not 0, abort with message, else continue }
   + [ index+address ]
   CELL+ [ index+address+8 ] [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell])
+
+
+\ Make a function which creates a 2d array (you don't have to worry about checking bounds)
   
 
 / Uncomment this next line before running the test
@@ -87,6 +89,6 @@
   else
     ." test2dArray failed: Expected 10 got "
     .
-  then space  ;
+  then ;
   
 
