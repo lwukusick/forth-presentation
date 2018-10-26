@@ -58,7 +58,7 @@
             DOES> 2dup @ U< 0= ABORT" ARRAY OUT OF BOUNDS "
                   + CELL+ ;
 
-(EXPLANATION:
+( EXPLANATION:
   Example - 10 safearray x
             12 x -- ABORT ARRAY OUT OF BOUNDS
             5 2 x !
@@ -71,7 +71,7 @@
   0= [ index address [index < # elems == 0] ] { 0 is false, so 0= negates a boolean}
   ABORT" { If top of stack is not 0, abort with message, else continue }
   + [ index+address ]
-  CELL+ [ index+address+8 ] [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell])
+  CELL+ [ index+address+8 ] [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell] )
 
 \ Make a function which creates a 2d array (you don't have to worry about checking bounds)
 \ Of course, 2d arrays aren't actually a thing in memory. 
