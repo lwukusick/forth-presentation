@@ -51,10 +51,12 @@
   then space emit ;
 
 \ Part 3: Here is code which creates an array which checks bounds
-          Make a function which creates a 2d array (you don't have to worry about checking bounds)
+\ Make a function which creates a 2d array (you don't have to worry about checking bounds)
 
-: safearray CREATE DUP , ALLOT
-            DOES> 2DUP @ U< 0= ABORT" ARRAY OUT OF BOUNDS "
+\ Capitalization doesn't matter at all in Forth
+
+: safearray CREATE dup , allot
+            DOES> 2dup @ U< 0= ABORT" ARRAY OUT OF BOUNDS "
                   + CELL+ ;
 
 (EXPLANATION:
@@ -62,14 +64,29 @@
             12 x -- ABORT ARRAY OUT OF BOUNDS
             5 2 x !
             2 x @ -- 5
-  DOES> initial stack ( index address)
-  2DUP ( index address index address )
-  @ ( index address index #elems )
-  U< ( index address (index < #elems) [Unsigned compare]
-  0= ( index address (index < # elems == 0) ) [ 0 is false, 0= negates a boolean]
-  ABORT" [ If top of stack is not 0, abort with message, else continue
-  + ( index+address )
-  CELL+ ( index+address+8 ) [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell]
+                
+  DOES>  initial stack [ index address]
+  2DUP [ index address index address ]
+  @ [ index address index #elems ]
+  U< [ index address [index < #elems]] {Unsigned compare}
+  0= [ index address [index < # elems == 0] ] { 0 is false, so 0= negates a boolean}
+  ABORT" { If top of stack is not 0, abort with message, else continue }
+  + [ index+address ]
+  CELL+ [ index+address+8 ] [ cell+ adds the size of a cell to the top of the stack, need to add 1 to get beyond the length which is stored at the first cell])
   
 
+/ Uncomment this next line before running the test
+/ 4 5 [ 2dArray ] mat
+
+: test2dArray
+  10 2 3 mat !
+  2 3 mat @
+  dup 10 = if
+    ." Passed "
+    drop
+  else
+    ." test2dArray failed: Expected 10 got "
+    .
+  then space  ;
+  
 
