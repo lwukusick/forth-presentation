@@ -71,7 +71,7 @@ Memory in Forth is yet another stack. This stack has dictionary labels, and so i
 |-------------------|
 |         0         |
 
-Where < is the dictionary pointer (points at the first free address on the memory stack). Memory locations can be accessed with `@` ( adr -- val ) and stored with `!` (val adr -- ). Value size is not handled for you; instead the word `cell` ( -- size ) gives the size of a block in memory in order to properly access adjacent cells on the dictionary. For example, on my machine all values in Forth take 8 bytes, so `cell` just pushes 8. `here` ( -- adr ) puts the address of the top of the user dictionary onto the stack. `allot` moves this pointer to allocate more space. `,` is a common word that might be defined as:
+Where < is the dictionary pointer (points at the first free address on the memory stack). Memory locations can be accessed with `@` ( adr -- val ) and stored with `!` (val adr -- ). Value size is not handled for you; instead the word `cell` ( -- size ) gives the size of a block in memory in order to properly access adjacent cells on the dictionary. For example, on my machine all values in Forth take 8 bytes, so `cell` just pushes 8. `here` ( -- adr ) puts the address of the top of the user dictionary onto the stack. `allot` ( amt -- ) moves this pointer to allocate more space. `,` is a common word that might be defined as:
 
 `: ,  here ! cell allot ;`
 
@@ -79,7 +79,7 @@ This is all well and good for manipulating things in already existant dictionary
 
 ## CREATE
 
-MYITEM is the dictionary heading. These headings are created by the `create` word. Lets take a look at the `variable` word. A definition for this word might be:
+MYITEM is the dictionary heading. These headings are created (among other ways) by the `create` word. Lets take a look at the `variable` word. A definition for this word might be:
 
 `: variable create 0 , ;`
 

@@ -1,10 +1,4 @@
 \ To load a source file into your repl, run: s" <file path>" included
-\ To run all the tests run: runAllTests and make sure to uncomment the line above the 2d array test
-
-: runAllTests 
-  testSquare 
-  test^4 
-  test2dArray ;
 
 \ Here are some stack manipulations for your reference
 \ The signatures are in the form ( <stack in> -- <stack out> )
@@ -24,15 +18,14 @@
 
 
 
-
-: testSquare 3 square 
-  dup 9 = if 
+: testSquare 3 square
+  dup 9 = if
     ." Passed"
     drop
   else
     ." Square Failed: Expected 9 got "
     .
-  then space emit ;
+  then space ;
 
 
 \ Part 2: Define a word that takes a value to the 4th power called `^4` ( n -- n^4 )
@@ -40,30 +33,29 @@
 
 
 
-
-: test^4 2 ^4 
+: test^4 2 ^4
   dup 16 = if
     ." Passed"
     drop
-  else 
+  else
     ." ^4 Failed: Expected 16 got "
     .
-  then space emit ;
+  then space ;
 
 \ Part 3: Here is just some example code which creates an array which checks bounds
 
 \ Capitalization doesn't matter at all in Forth
 
-: safearray CREATE dup , allot
+: safearray CREATE dup , cells allot
             DOES> 2dup @ U< 0= ABORT" ARRAY OUT OF BOUNDS "
-                  + CELL+ ;
+                  swap cells + CELL+ ;
 
 ( EXPLANATION:
   Example - 10 safearray x
             12 x -- ABORT ARRAY OUT OF BOUNDS
             5 2 x !
             2 x @ -- 5
-                
+
   DOES>  initial stack [ index address]
   2DUP [ index address index address ]
   @ [ index address index #elems ]
@@ -78,9 +70,10 @@
 \ You will have to allocate the proper amount of space in the create block and define how to access it based on the inputs in the does> block
 
 
-  
 
+: mat 0 ;
 \ Uncomment this next line before running the test
+
 \ 4 5 [ 2dArray ] mat
 
 : test2dArray
@@ -93,5 +86,11 @@
     ." test2dArray failed: Expected 10 got "
     .
   then ;
-  
+
+\ To run all the tests run: runAllTests and make sure to uncomment the line above the 2d array test
+
+: runAllTests
+    testSquare
+    test^4
+    test2dArray ;
 
